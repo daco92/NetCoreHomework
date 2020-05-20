@@ -4,7 +4,7 @@
    "DefaultDacpacSchema": null,
    "DoNotCombineNamespace": false,
    "IdReplace": false,
-   "IncludeConnectionString": true,
+   "IncludeConnectionString": false,
    "ModelNamespace": null,
    "OutputContextPath": "Models",
    "OutputPath": "Models",
@@ -49,9 +49,9 @@
          "Name": "[dbo].[vwDepartmentCourseCount]"
       }
    ],
-   "UseDatabaseNames": true,
+   "UseDatabaseNames": false,
    "UseDbContextSplitting": false,
-   "UseFluentApiOnly": true,
+   "UseFluentApiOnly": false,
    "UseHandleBars": false,
    "UseInflector": false,
    "UseLegacyPluralizer": false,
