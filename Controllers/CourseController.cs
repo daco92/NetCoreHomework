@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using NetCoreHomework.Models;
 //using NetCoreHomework.Models;
 
@@ -20,6 +21,24 @@ namespace NetCoreHomework.Controllers {
         public ActionResult<IEnumerable<Course>> GetCourses () {
 
             return db.Course.ToList ();
+        }
+
+        // GET api/course
+        [HttpGet ("CourseStudentsCount")]
+        public ActionResult<IEnumerable<VwCourseStudentCount>> GetCourseStudentCount () {
+
+            var model = db.VwCourseStudentCount
+                .FromSqlRaw ("Select * from VwCourseStudentCount")
+                .ToList ();
+
+            return model;
+        }
+
+        // GET api/course
+        [HttpGet ("CourseStudents")]
+        public ActionResult<IEnumerable<VwCourseStudents>> GetCourseStudents () {
+
+            return db.VwCourseStudents.ToList ();
         }
 
         // GET api/course/5
@@ -49,18 +68,18 @@ namespace NetCoreHomework.Controllers {
         // PUT api/course/5
         [HttpPut ("{id}")]
         public void PutCourse (int id, Course value) {
-            var course = db.Course.Find(id);
+            var course = db.Course.Find (id);
             course.Title = value.Title;
-            db.SaveChanges();
+            db.SaveChanges ();
 
-         }
+        }
 
         // DELETE api/course/5
         [HttpDelete ("{id}")]
         public void DeleteCourseById (int id) {
-            var course = db.Course.Find(id);
-            db.Course.Remove(course);
-            db.SaveChanges();
-         }
+            var course = db.Course.Find (id);
+            db.Course.Remove (course);
+            db.SaveChanges ();
+        }
     }
 }
