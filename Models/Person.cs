@@ -4,41 +4,49 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace NetCoreHomework.Models
-{
-    public partial class Person
-    {
-        public Person()
-        {
-            CourseInstructor = new HashSet<CourseInstructor>();
-            Department = new HashSet<Department>();
-            Enrollment = new HashSet<Enrollment>();
+namespace NetCoreHomework.Models {
+    public partial class Person {
+        public Person () {
+            CourseInstructor = new HashSet<CourseInstructor> ();
+            Department = new HashSet<Department> ();
+            Enrollment = new HashSet<Enrollment> ();
         }
 
         [Key]
-        [Column("ID")]
+        [Column ("ID")]
         public int Id { get; set; }
+
         [Required]
-        [StringLength(50)]
+        [StringLength (50)]
         public string LastName { get; set; }
+
         [Required]
-        [StringLength(50)]
+        [StringLength (50)]
         public string FirstName { get; set; }
-        [Column(TypeName = "datetime")]
+
+        [Column (TypeName = "datetime")]
         public DateTime? HireDate { get; set; }
-        [Column(TypeName = "datetime")]
+
+        [Column (TypeName = "datetime")]
         public DateTime? EnrollmentDate { get; set; }
+
         [Required]
-        [StringLength(128)]
+        [StringLength (128)]
         public string Discriminator { get; set; }
 
-        [InverseProperty("Instructor")]
+        [Column ("DateModified")]
+        public DateTime DateModified { get; set ;}
+
+        [InverseProperty ("Instructor")]
         public virtual OfficeAssignment OfficeAssignment { get; set; }
-        [InverseProperty("Instructor")]
+
+        [InverseProperty ("Instructor")]
         public virtual ICollection<CourseInstructor> CourseInstructor { get; set; }
-        [InverseProperty("Instructor")]
+
+        [InverseProperty ("Instructor")]
         public virtual ICollection<Department> Department { get; set; }
-        [InverseProperty("Student")]
+
+        [InverseProperty ("Student")]
         public virtual ICollection<Enrollment> Enrollment { get; set; }
     }
 }

@@ -23,6 +23,9 @@ namespace NetCoreHomework.Models
         [Column("DepartmentID")]
         public int DepartmentId { get; set; }
 
+        [Column("DateModified")]
+        public DateTime DateModified {get;set;}
+
         [ForeignKey(nameof(DepartmentId))]
         [InverseProperty("Course")]
         public virtual Department Department { get; set; }

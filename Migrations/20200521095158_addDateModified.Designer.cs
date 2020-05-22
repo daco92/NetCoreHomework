@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using NetCoreHomework.Models;
 
 namespace NetCoreHomework.Migrations
 {
     [DbContext(typeof(ContosouniversityContext))]
-    partial class ContosouniversityContextModelSnapshot : ModelSnapshot
+    [Migration("20200521095158_addDateModified")]
+    partial class addDateModified
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
