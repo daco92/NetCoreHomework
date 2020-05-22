@@ -35,7 +35,10 @@ namespace NetCoreHomework.Models {
         public string Discriminator { get; set; }
 
         [Column ("DateModified")]
-        public DateTime DateModified { get; set ;}
+        public DateTime DateModified { get; set; }
+
+        [Column ("IsDeleted")]
+        public bool IsDeleted { get; set; }
 
         [InverseProperty ("Instructor")]
         public virtual OfficeAssignment OfficeAssignment { get; set; }

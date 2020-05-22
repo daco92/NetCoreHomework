@@ -30,6 +30,9 @@ namespace NetCoreHomework.Models
         [Column("DateModified")]
         public DateTime DateModified {get;set;}
 
+         [Column("IsDeleted")]
+        public bool IsDeleted  {get;set;}
+
         [ForeignKey(nameof(InstructorId))]
         [InverseProperty(nameof(Person.Department))]
         public virtual Person Instructor { get; set; }

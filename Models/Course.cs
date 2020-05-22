@@ -4,34 +4,39 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace NetCoreHomework.Models
-{
-    public partial class Course
-    {
-        public Course()
-        {
-            CourseInstructor = new HashSet<CourseInstructor>();
-            Enrollment = new HashSet<Enrollment>();
+namespace NetCoreHomework.Models {
+    public partial class Course {
+        public Course () {
+            CourseInstructor = new HashSet<CourseInstructor> ();
+            Enrollment = new HashSet<Enrollment> ();
         }
 
         [Key]
-        [Column("CourseID")]
+        [Column ("CourseID")]
         public int CourseId { get; set; }
-        [StringLength(50)]
+
+        [StringLength (50)]
         public string Title { get; set; }
         public int Credits { get; set; }
-        [Column("DepartmentID")]
+
+        [Column ("DepartmentID")]
         public int DepartmentId { get; set; }
 
-        [Column("DateModified")]
-        public DateTime DateModified {get;set;}
+        [Column ("DateModified")]
+        public DateTime DateModified { get; set; }
 
-        [ForeignKey(nameof(DepartmentId))]
-        [InverseProperty("Course")]
+        [Column ("IsDeleted")]
+        public bool IsDeleted { get; set; }
+
+        [ForeignKey (nameof (DepartmentId))]
+        [InverseProperty ("Course")]
         public virtual Department Department { get; set; }
-        [InverseProperty("Course")]
+
+        [InverseProperty ("Course")]
         public virtual ICollection<CourseInstructor> CourseInstructor { get; set; }
-        [InverseProperty("Course")]
+
+        [InverseProperty ("Course")]
+
         public virtual ICollection<Enrollment> Enrollment { get; set; }
     }
 }

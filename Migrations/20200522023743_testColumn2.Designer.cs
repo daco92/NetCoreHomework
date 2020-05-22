@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using NetCoreHomework.Models;
 
 namespace NetCoreHomework.Migrations
 {
     [DbContext(typeof(ContosouniversityContext))]
-    partial class ContosouniversityContextModelSnapshot : ModelSnapshot
+    [Migration("20200522023743_testColumn2")]
+    partial class testColumn2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -43,6 +45,10 @@ namespace NetCoreHomework.Migrations
                     b.Property<bool>("IsDeleted")
                         .HasColumnName("IsDeleted")
                         .HasColumnType("bit");
+
+                    b.Property<string>("TestColumn")
+                        .HasColumnName("TestColumn")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Title")
                         .HasColumnType("nvarchar(50)")
@@ -96,10 +102,6 @@ namespace NetCoreHomework.Migrations
                     b.Property<int?>("InstructorId")
                         .HasColumnName("InstructorID")
                         .HasColumnType("int");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnName("IsDeleted")
-                        .HasColumnType("bit");
 
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(50)")
