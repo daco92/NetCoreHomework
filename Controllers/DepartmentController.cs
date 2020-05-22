@@ -25,7 +25,7 @@ namespace NetCoreHomework.Controllers {
         // GET api/department/5
         [HttpGet ("{id}")]
         public ActionResult<Department> GetDepartmentById (int id) {
-            return db.Department.Find (id);
+            return db.Department.Where(c => c.DepartmentId==id && c.IsDeleted!=true).First();
         }
 
         [HttpGet ("add")]
@@ -78,7 +78,8 @@ namespace NetCoreHomework.Controllers {
                 Budget = value.Budget,
                 StartDate = value.StartDate,
                 InstructorId = value.InstructorId,
-                RowVersion= model.RowVersion
+                RowVersion= model.RowVersion,
+                DateModified= DateTime.Now
             };
             
             SqlParameter DepartmentId = new SqlParameter ("@DepartmentID", Entity.DepartmentId);
@@ -99,10 +100,16 @@ namespace NetCoreHomework.Controllers {
             // db.Department.Remove (model);
             // db.SaveChanges ();
 
-            SqlParameter departmentID = new SqlParameter ("@DepartmentID", Entity.DepartmentId);
-            SqlParameter rowVersion_Original = new SqlParameter ("@RowVersion_Original", Entity.RowVersion);
 
-            db.Database.ExecuteSqlRaw (" exec Department_Delete @DepartmentID, @RowVersion_Original", departmentID, rowVersion_Original);
+            //-- 運用sp刪除資料
+            // SqlParameter departmentID = new SqlParameter ("@DepartmentID", Entity.DepartmentId);
+            // SqlParameter rowVersion_Original = new SqlParameter ("@RowVersion_Original", Entity.RowVersion);
+            // db.Database.ExecuteSqlRaw (" exec Department_Delete @DepartmentID, @RowVersion_Original", departmentID, rowVersion_Original);
+
+
+            //標記資料不刪除
+            Entity.IsDeleted=true;
+            db.SaveChanges();
 
         }
     }

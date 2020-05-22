@@ -20,7 +20,7 @@ namespace NetCoreHomework.Controllers {
         [HttpGet ("")]
         public ActionResult<IEnumerable<Course>> GetCourses () {
 
-            return db.Course.ToList ();
+            return db.Course.Where (c => c.IsDeleted != true).ToList ();
         }
 
         // GET api/course
@@ -44,7 +44,9 @@ namespace NetCoreHomework.Controllers {
         // GET api/course/5
         [HttpGet ("{id}")]
         public ActionResult<Course> GetCourseById (int id) {
-            return db.Course.Find (id);
+            //return db.Course.Find (id);
+            return db.Course.Where (c => c.CourseId == id && c.IsDeleted != true).First ();
+
         }
 
         [HttpGet ("add")]
@@ -70,16 +72,21 @@ namespace NetCoreHomework.Controllers {
         public void PutCourse (int id, Course value) {
             var course = db.Course.Find (id);
             course.Title = value.Title;
+            course.DateModified = DateTime.Now;
             db.SaveChanges ();
-
         }
 
         // DELETE api/course/5
         [HttpDelete ("{id}")]
         public void DeleteCourseById (int id) {
+            // var course = db.Course.Find (id);
+            // db.Course.Remove (course);
+            // db.SaveChanges ();
+
             var course = db.Course.Find (id);
-            db.Course.Remove (course);
+            course.IsDeleted = true;
             db.SaveChanges ();
+
         }
     }
 }

@@ -17,13 +17,15 @@ namespace NetCoreHomework.Controllers {
         // GET api/person
         [HttpGet ("")]
         public ActionResult<IEnumerable<Person>> GetPersons () {
-            return db.Person.ToList ();
+            return db.Person.Where(c =>c.IsDeleted!=true).ToList ();
         }
 
         // GET api/person/5
         [HttpGet ("{id}")]
         public ActionResult<Person> GetPersonById (int id) {
-            return db.Person.Find (id);
+            //return db.Person.Find (id);
+            return db.Person.Where(c => c.Id==id && c.IsDeleted!=true).First();
+
         }
 
         [HttpPost ("add")]
@@ -47,21 +49,23 @@ namespace NetCoreHomework.Controllers {
         // PUT api/person/5
         [HttpPut ("{id}")]
         public void PutPerson (int id, Person value) {
-            var model = db.Person.Find(id);
+            var model = db.Person.Find (id);
             model.LastName = value.LastName;
-            db.SaveChanges();
+            model.DateModified = DateTime.Now;
+            db.SaveChanges ();
 
-
-         }
+        }
 
         // DELETE api/person/5
         [HttpDelete ("{id}")]
         public void DeletePersonById (int id) {
 
-            var model = db.Person.Find(id);
-            db.Person.Remove(model);
+            var model = db.Person.Find (id);
+            // db.Person.Remove (model);
+            // db.SaveChanges ();
+            model.IsDeleted=true;
             db.SaveChanges();
 
-         }
+        }
     }
 }
